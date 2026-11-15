@@ -1,6 +1,6 @@
 # YONOD security backports for Transformers 4.57.6
 
-This local fork identifies itself as `4.57.6+yonod.sec2`. It is not an upstream
+This local fork identifies itself as `4.57.6+yonod.sec3`. It is not an upstream
 Transformers release, and it does not impersonate version 5.x.
 
 The base is the official `v4.57.6` annotated tag
@@ -9,7 +9,7 @@ The base is the official `v4.57.6` annotated tag
 contains that shallow upstream snapshot; earlier upstream history is not
 claimed to be present. Original Apache-2.0 notices and LICENSE are preserved.
 
-Four upstream fixes are adapted to the 4.x implementation:
+Five upstream fixes are adapted to the 4.x implementation:
 
 | Advisory | Upstream commit | Adaptation |
 | --- | --- | --- |
@@ -17,6 +17,7 @@ Four upstream fixes are adapted to the 4.x implementation:
 | GHSA-fgcw-684q-jj6r | `676559d5022b74aaa0cee1cee0842b7f27c5320e` | Resolve LightGlue nested configs through native CONFIG_MAPPING and remove propagation of serialized remote-code trust. Modular sources and generated runtime sources remain synchronized. |
 | GHSA-29pf-2h5f-8g72 | `a7f8e7ff37d87d1a1a0c8cf607971c607741452f` | Ignore serialized internal attention/experts selectors and limit kernel identification to kernels-community. |
 | GHSA-69w3-r845-3855 | `03c8082ba4594c9b8d6fe190ca9bed0e5f8ca396` | Apply the existing Torch safety check before RNG-state loading, and explicitly use weights_only=True. |
+| GHSA-x9r9-c232-4q39 | `cbc1651a032b923da7f4b44b3d0e6f68e6ba6b55` | Resolve custom generation consent before fetching or caching code; require true resolved consent for a remote repository. |
 
 The 4.x base already imports pathlib.Path in both template writers and already
 provides check_torch_load_is_safe. LightGlue retains the 4.x constructor and
@@ -42,7 +43,7 @@ even when weights_only=False. On the Python 3.9 / Torch 2.8 stack, guarded
 Hugging Face pickle weights and Trainer RNG restoration fail closed;
 safetensors weights remain available. This stricter YONOD admission policy
 does not patch native Torch, audit every optional loader, or fix other native
-Torch/JIT advisories. It supplements, and does not replace, the four backports.
+Torch/JIT advisories. It supplements, and does not replace, the five backports.
 Replacing weights_only with unrestricted loading is not a compatibility
 workaround. The kernels-community allowlist is
 the upstream trust boundary; it is not a sandbox or a guarantee about every
@@ -57,3 +58,12 @@ Dependabot may continue matching the public version range of 4.57.6. A local
 version string does not make those alerts disappear automatically. Record
 patch provenance and per-advisory evidence rather than changing the version
 to a fictitious patched upstream release.
+
+Sec3 adapts the custom-generation consent ordering fix by moving the existing
+trust resolver before get_cached_module_file. No file-existence network probe
+is needed for this 4.x adaptation. Declining consent, an unresolved None, or a
+warning without true resolved consent cannot download/cache remote code.
+Explicit True and an affirmative result from the existing consent resolver
+retain the authorized API; the existing local-code interface is preserved.
+Missing remote files are reported only after authorization. The advisory
+still lists no first patched upstream release; this fork does not invent one.

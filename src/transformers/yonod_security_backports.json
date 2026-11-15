@@ -1,7 +1,7 @@
 {
   "schema": "yonod-transformers-backports/v1",
   "name": "transformers",
-  "version": "4.57.6+yonod.sec2",
+  "version": "4.57.6+yonod.sec3",
   "upstream": {
     "repository": "https://github.com/huggingface/transformers",
     "tag": "v4.57.6",
@@ -54,6 +54,17 @@
         "src/transformers/trainer.py"
       ],
       "adaptation": "Reuse the existing imported safety guard and apply weights_only=True specifically to RNG restoration."
+    },
+    {
+      "advisory": "GHSA-x9r9-c232-4q39",
+      "cve": "CVE-2026-80047",
+      "upstream_commit": "cbc1651a032b923da7f4b44b3d0e6f68e6ba6b55",
+      "upstream_url": "https://github.com/huggingface/transformers/commit/cbc1651a032b923da7f4b44b3d0e6f68e6ba6b55",
+      "upstream_commit_evidence_sha256": "f743f9cf8cd9b406f6db4696f0d19d8183d5cd0e8c32c24fad672f4b2a986b0a",
+      "production_files": [
+        "src/transformers/generation/utils.py"
+      ],
+      "adaptation": "Resolve consent before the existing get_cached_module_file call, without adding an existence-probe network request. Require a true resolved consent value for remote code. Keep the existing local-code interface and authorized missing-file error. Official advisory first_patched_version is null; do not invent an upstream fixed release."
     }
   ],
   "modified_production_files": [
@@ -68,9 +79,10 @@
     "src/transformers/tokenization_utils_base.py",
     "src/transformers/trainer.py",
     "src/transformers/utils/import_utils.py",
-    "src/transformers/modeling_utils.py"
+    "src/transformers/modeling_utils.py",
+    "src/transformers/generation/utils.py"
   ],
-  "scope": "Four named advisory fixes adapted to Python 3.9-compatible 4.x source; not a whole-environment vulnerability-free claim.",
+  "scope": "Five named advisory fixes adapted to Python 3.9-compatible 4.x source, plus the stricter sec2 Torch pickle guard policy; not a whole-package or whole-environment vulnerability-free claim.",
   "additional_policy": {
     "schema": "yonod.hf-torch-pickle-admission/v1",
     "advisory": "GHSA-63cw-57p8-fm3p",

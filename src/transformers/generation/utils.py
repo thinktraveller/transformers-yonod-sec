@@ -413,6 +413,23 @@ class GenerationMixin(ContinuousMixin):
         Returns:
             A callable that can be used to generate text.
         """
+        # YONOD sec3 backport: resolve consent before any remote module fetch
+        # or cache write. A warning alone is not authorization.
+        is_local_code = os.path.exists(pretrained_model_name_or_path)
+        error_message = (
+            f"The repository `{pretrained_model_name_or_path}` contains custom generation code that will override "
+            "the default `generate` method."
+        )
+        resolved_trust = resolve_trust_remote_code(
+            trust_remote_code,
+            pretrained_model_name_or_path,
+            has_local_code=is_local_code,
+            has_remote_code=not is_local_code,
+            error_message=error_message,
+        )
+        if not is_local_code and resolved_trust is not True:
+            raise ValueError("Remote custom generation code requires explicit trust before downloading or caching")
+
         # Fetches the generate.py file from the model repo. If it doesn't exist, a file in `.no_exist` cache directory
         # is created (preventing future hub requests), and an OSError is raised.
         try:
@@ -424,20 +441,6 @@ class GenerationMixin(ContinuousMixin):
                 f"`{pretrained_model_name_or_path}` does not contain a `custom_generate` subdirectory with a "
                 "`generate.py` file, can't load the custom generate function."
             )
-
-        # Handle opt-in `trust_remote_code` and related exceptions
-        is_local_code = os.path.exists(pretrained_model_name_or_path)
-        error_message = (
-            f"The repository `{pretrained_model_name_or_path}` contains custom generation code that will override "
-            "the default `generate` method."
-        )
-        resolve_trust_remote_code(
-            trust_remote_code,
-            pretrained_model_name_or_path,
-            has_local_code=is_local_code,
-            has_remote_code=not is_local_code,
-            error_message=error_message,
-        )
 
         # Load the custom generate function
         check_python_requirements(

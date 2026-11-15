@@ -6,9 +6,9 @@
     "component": {
       "type": "library",
       "name": "transformers",
-      "version": "4.57.6+yonod.sec2",
-      "bom-ref": "pkg:pypi/transformers@4.57.6%2Byonod.sec2",
-      "purl": "pkg:pypi/transformers@4.57.6%2Byonod.sec2",
+      "version": "4.57.6+yonod.sec3",
+      "bom-ref": "pkg:pypi/transformers@4.57.6%2Byonod.sec3",
+      "purl": "pkg:pypi/transformers@4.57.6%2Byonod.sec3",
       "licenses": [
         {
           "license": {
@@ -168,7 +168,7 @@
   ],
   "dependencies": [
     {
-      "ref": "pkg:pypi/transformers@4.57.6%2Byonod.sec2",
+      "ref": "pkg:pypi/transformers@4.57.6%2Byonod.sec3",
       "dependsOn": [
         "pkg:pypi/filelock",
         "pkg:pypi/huggingface-hub",
