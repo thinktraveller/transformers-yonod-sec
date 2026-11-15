@@ -1,0 +1,4 @@
+include YONOD_SECURITY.md
+include LICENSE
+include src/transformers/yonod_security_backports.json
+include src/transformers/yonod_security_sbom.cdx.json

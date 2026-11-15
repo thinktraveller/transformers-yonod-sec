@@ -1,0 +1,186 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "library",
+      "name": "transformers",
+      "version": "4.57.6+yonod.sec1",
+      "bom-ref": "pkg:pypi/transformers@4.57.6%2Byonod.sec1",
+      "purl": "pkg:pypi/transformers@4.57.6%2Byonod.sec1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/huggingface/transformers/tree/753d61104116eefc8ffc977327b441ee0c8d599f"
+        }
+      ],
+      "properties": [
+        {
+          "name": "yonod:scope",
+          "value": "Declared direct runtime dependencies for Python 3.9 Linux/Windows, not resolved installed versions or a complete environment audit."
+        },
+        {
+          "name": "yonod:upstream-pypi-metadata-sha256",
+          "value": "2a0f3f10065450c311374593fb6d6cb1476a4c907f372eee4f741203a7ee54d9"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "filelock",
+      "bom-ref": "pkg:pypi/filelock",
+      "purl": "pkg:pypi/filelock",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "filelock"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "huggingface-hub",
+      "bom-ref": "pkg:pypi/huggingface-hub",
+      "purl": "pkg:pypi/huggingface-hub",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "huggingface-hub<1.0,>=0.34.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "numpy",
+      "bom-ref": "pkg:pypi/numpy",
+      "purl": "pkg:pypi/numpy",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "numpy>=1.17"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "packaging",
+      "bom-ref": "pkg:pypi/packaging",
+      "purl": "pkg:pypi/packaging",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "packaging>=20.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pyyaml",
+      "bom-ref": "pkg:pypi/pyyaml",
+      "purl": "pkg:pypi/pyyaml",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "pyyaml>=5.1"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "regex",
+      "bom-ref": "pkg:pypi/regex",
+      "purl": "pkg:pypi/regex",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "regex!=2019.12.17"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "requests",
+      "bom-ref": "pkg:pypi/requests",
+      "purl": "pkg:pypi/requests",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "requests"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tokenizers",
+      "bom-ref": "pkg:pypi/tokenizers",
+      "purl": "pkg:pypi/tokenizers",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "tokenizers<=0.23.0,>=0.22.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "safetensors",
+      "bom-ref": "pkg:pypi/safetensors",
+      "purl": "pkg:pypi/safetensors",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "safetensors>=0.4.3"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tqdm",
+      "bom-ref": "pkg:pypi/tqdm",
+      "purl": "pkg:pypi/tqdm",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "yonod:declared-requirement",
+          "value": "tqdm>=4.27"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:pypi/transformers@4.57.6%2Byonod.sec1",
+      "dependsOn": [
+        "pkg:pypi/filelock",
+        "pkg:pypi/huggingface-hub",
+        "pkg:pypi/numpy",
+        "pkg:pypi/packaging",
+        "pkg:pypi/pyyaml",
+        "pkg:pypi/regex",
+        "pkg:pypi/requests",
+        "pkg:pypi/tokenizers",
+        "pkg:pypi/safetensors",
+        "pkg:pypi/tqdm"
+      ]
+    }
+  ]
+}

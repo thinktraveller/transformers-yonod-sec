@@ -461,19 +461,27 @@ install_requires = [
 
 setup(
     name="transformers",
-    version="4.57.6",  # expected format is one of x.y.z.dev0, or x.y.z.rc1 or x.y.z (no to dashes, yes to dots)
+    version="4.57.6+yonod.sec1",  # PEP 440 local version for the audited YONOD security backports.
     author="The Hugging Face team (past and future) with the help of all our contributors (https://github.com/huggingface/transformers/graphs/contributors)",
     author_email="transformers@huggingface.co",
-    description="State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow",
-    long_description=open("README.md", "r", encoding="utf-8").read(),
+    description="Transformers 4.x with audited YONOD security backports",
+    long_description=(
+        open("YONOD_SECURITY.md", "r", encoding="utf-8").read()
+        + "\n\n"
+        + open("README.md", "r", encoding="utf-8").read()
+    ),
     long_description_content_type="text/markdown",
     keywords="NLP vision speech deep learning transformer pytorch tensorflow jax BERT GPT-2 Wav2Vec2 ViT",
     license="Apache 2.0 License",
-    url="https://github.com/huggingface/transformers",
+    url="https://github.com/thinktraveller/transformers-yonod-sec",
+    project_urls={"Upstream": "https://github.com/huggingface/transformers"},
     package_dir={"": "src"},
     packages=find_packages("src"),
     include_package_data=True,
-    package_data={"": ["**/*.cu", "**/*.cpp", "**/*.cuh", "**/*.h", "**/*.pyx", "py.typed"]},
+    package_data={
+        "": ["**/*.cu", "**/*.cpp", "**/*.cuh", "**/*.h", "**/*.pyx", "py.typed"],
+        "transformers": ["yonod_security_backports.json", "yonod_security_sbom.cdx.json"],
+    },
     zip_safe=False,
     extras_require=extras,
     entry_points={

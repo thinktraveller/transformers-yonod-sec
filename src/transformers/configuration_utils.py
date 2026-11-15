@@ -340,11 +340,13 @@ class PretrainedConfig(PushToHubMixin):
 
         # Additional attributes without default values
         for key, value in kwargs.items():
-            try:
-                setattr(self, key, value)
-            except AttributeError as err:
-                logger.error(f"Can't set {key} with value {value} for {self}")
-                raise err
+            # YONOD backport a7f8e7ff: do not deserialize internal implementation selectors.
+            if key not in ("_attn_implementation_internal", "_experts_implementation_internal"):
+                try:
+                    setattr(self, key, value)
+                except AttributeError as err:
+                    logger.error(f"Can't set {key} with value {value} for {self}")
+                    raise err
 
         # TODO: remove later, deprecated arguments for TF models
         self.tf_legacy_loss = kwargs.pop("tf_legacy_loss", False)

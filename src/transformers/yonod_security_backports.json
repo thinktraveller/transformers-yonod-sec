@@ -1,0 +1,72 @@
+{
+  "schema": "yonod-transformers-backports/v1",
+  "name": "transformers",
+  "version": "4.57.6+yonod.sec1",
+  "upstream": {
+    "repository": "https://github.com/huggingface/transformers",
+    "tag": "v4.57.6",
+    "annotated_tag_object": "7dacdf4543ca4fe081f99dedacdb70d8df0fd366",
+    "source_commit": "753d61104116eefc8ffc977327b441ee0c8d599f",
+    "initial_clone_depth": 1
+  },
+  "license": "Apache-2.0",
+  "patches": [
+    {
+      "advisory": "GHSA-xrqw-3rrv-vx5w",
+      "upstream_commit": "eaaaf8494dd5386634ae37d1d122212fdc315be5",
+      "upstream_url": "https://github.com/huggingface/transformers/commit/eaaaf8494dd5386634ae37d1d122212fdc315be5",
+      "upstream_commit_evidence_sha256": "6e5b3e18af9d2bef3c04135b5484cdf239b16909633718d0c5753e24e540ce79",
+      "production_files": [
+        "src/transformers/tokenization_utils_base.py",
+        "src/transformers/processing_utils.py"
+      ],
+      "adaptation": "Adapt the resolved-parent check at both 4.x named-template write sites; pathlib.Path is already imported."
+    },
+    {
+      "advisory": "GHSA-fgcw-684q-jj6r",
+      "upstream_commit": "676559d5022b74aaa0cee1cee0842b7f27c5320e",
+      "upstream_url": "https://github.com/huggingface/transformers/commit/676559d5022b74aaa0cee1cee0842b7f27c5320e",
+      "upstream_commit_evidence_sha256": "e6099d4bc58fed4dcc106d07f72988fd00355dc69de55af5cce60452cc828483",
+      "production_files": [
+        "src/transformers/models/lightglue/modular_lightglue.py",
+        "src/transformers/models/lightglue/configuration_lightglue.py",
+        "src/transformers/models/lightglue/modeling_lightglue.py"
+      ],
+      "adaptation": "Adapt to the 4.x constructor and regenerate the runtime files from the modular source; remove native nested remote fallback and trust propagation."
+    },
+    {
+      "advisory": "GHSA-29pf-2h5f-8g72",
+      "upstream_commit": "a7f8e7ff37d87d1a1a0c8cf607971c607741452f",
+      "upstream_url": "https://github.com/huggingface/transformers/commit/a7f8e7ff37d87d1a1a0c8cf607971c607741452f",
+      "upstream_commit_evidence_sha256": "78b56becf916f4652f29833c95d6d20fb44850571024aec49a295c201ad4a632",
+      "production_files": [
+        "src/transformers/configuration_utils.py",
+        "src/transformers/integrations/hub_kernels.py"
+      ],
+      "adaptation": "Filter the two internal selectors during deserialization and use the upstream organization allowlist while preserving 4.x helper names and Python 3.9 syntax."
+    },
+    {
+      "advisory": "GHSA-69w3-r845-3855",
+      "upstream_commit": "03c8082ba4594c9b8d6fe190ca9bed0e5f8ca396",
+      "upstream_url": "https://github.com/huggingface/transformers/commit/03c8082ba4594c9b8d6fe190ca9bed0e5f8ca396",
+      "upstream_commit_evidence_sha256": "2245fd716db65a1a1467ba66ee5999bae0528701867b9b586179240a2534e2e4",
+      "production_files": [
+        "src/transformers/trainer.py"
+      ],
+      "adaptation": "Reuse the existing imported safety guard and apply weights_only=True specifically to RNG restoration."
+    }
+  ],
+  "modified_production_files": [
+    "setup.py",
+    "src/transformers/__init__.py",
+    "src/transformers/configuration_utils.py",
+    "src/transformers/integrations/hub_kernels.py",
+    "src/transformers/models/lightglue/configuration_lightglue.py",
+    "src/transformers/models/lightglue/modeling_lightglue.py",
+    "src/transformers/models/lightglue/modular_lightglue.py",
+    "src/transformers/processing_utils.py",
+    "src/transformers/tokenization_utils_base.py",
+    "src/transformers/trainer.py"
+  ],
+  "scope": "Four named advisory fixes adapted to Python 3.9-compatible 4.x source; not a whole-environment vulnerability-free claim."
+}
