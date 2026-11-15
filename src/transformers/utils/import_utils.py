@@ -1643,12 +1643,14 @@ def is_mistral_common_available() -> Union[tuple[bool, str], bool]:
 
 
 def check_torch_load_is_safe() -> None:
-    if not is_torch_greater_or_equal("2.6"):
+    # YONOD sec2: CVE-2026-24747 also affects weights_only on Torch <2.10.
+    if not is_torch_greater_or_equal("2.10"):
         raise ValueError(
-            "Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users "
-            "to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply "
-            "when loading files with safetensors."
-            "\nSee the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434"
+            "YONOD security policy requires torch>=2.10 for pickle checkpoint loading because "
+            "CVE-2026-24747 affects torch.load even with weights_only=True. "
+            "Use safetensors on the Python 3.9 stack; safetensors loading is not subject to this pickle guard. "
+            "This policy does not patch native Torch."
+            "\nSee https://github.com/advisories/GHSA-63cw-57p8-fm3p"
         )
 
 

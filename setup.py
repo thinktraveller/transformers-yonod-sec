@@ -461,7 +461,7 @@ install_requires = [
 
 setup(
     name="transformers",
-    version="4.57.6+yonod.sec1",  # PEP 440 local version for the audited YONOD security backports.
+    version="4.57.6+yonod.sec2",  # PEP 440 local version for the audited YONOD security backports.
     author="The Hugging Face team (past and future) with the help of all our contributors (https://github.com/huggingface/transformers/graphs/contributors)",
     author_email="transformers@huggingface.co",
     description="Transformers 4.x with audited YONOD security backports",

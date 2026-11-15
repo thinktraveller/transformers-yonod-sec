@@ -1,7 +1,7 @@
 {
   "schema": "yonod-transformers-backports/v1",
   "name": "transformers",
-  "version": "4.57.6+yonod.sec1",
+  "version": "4.57.6+yonod.sec2",
   "upstream": {
     "repository": "https://github.com/huggingface/transformers",
     "tag": "v4.57.6",
@@ -66,7 +66,17 @@
     "src/transformers/models/lightglue/modular_lightglue.py",
     "src/transformers/processing_utils.py",
     "src/transformers/tokenization_utils_base.py",
-    "src/transformers/trainer.py"
+    "src/transformers/trainer.py",
+    "src/transformers/utils/import_utils.py",
+    "src/transformers/modeling_utils.py"
   ],
-  "scope": "Four named advisory fixes adapted to Python 3.9-compatible 4.x source; not a whole-environment vulnerability-free claim."
+  "scope": "Four named advisory fixes adapted to Python 3.9-compatible 4.x source; not a whole-environment vulnerability-free claim.",
+  "additional_policy": {
+    "schema": "yonod.hf-torch-pickle-admission/v1",
+    "advisory": "GHSA-63cw-57p8-fm3p",
+    "cve": "CVE-2026-24747",
+    "source": "https://github.com/advisories/GHSA-63cw-57p8-fm3p",
+    "torch_load_minimum": "2.10",
+    "implementation": "Raise the existing Torch safety guard to 2.10 and guard the pickle load_state_dict path even when weights_only=False. Safetensors returns before this guard. This is a stricter YONOD fork admission policy; it does not patch native Torch or imply whole-package/whole-environment safety."
+  }
 }

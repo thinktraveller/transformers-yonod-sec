@@ -1,6 +1,6 @@
 # YONOD security backports for Transformers 4.57.6
 
-This local fork identifies itself as `4.57.6+yonod.sec1`. It is not an upstream
+This local fork identifies itself as `4.57.6+yonod.sec2`. It is not an upstream
 Transformers release, and it does not impersonate version 5.x.
 
 The base is the official `v4.57.6` annotated tag
@@ -35,9 +35,16 @@ pickles, model weights, descriptor calculations, training, or predictions.
 Application/model compatibility and Linux/Windows execution need separate
 acceptance in the isolated candidate environment.
 
-Torch versions below the existing safety threshold are intentionally rejected
-when resuming Trainer RNG files. Replacing weights_only with unrestricted
-loading is not a compatibility workaround. The kernels-community allowlist is
+Sec2 additionally raises the existing pickle loading safety threshold to
+Torch 2.10 because CVE-2026-24747 (GHSA-63cw-57p8-fm3p) affects weights_only
+loading on older releases. The pickle load_state_dict path checks the guard
+even when weights_only=False. On the Python 3.9 / Torch 2.8 stack, guarded
+Hugging Face pickle weights and Trainer RNG restoration fail closed;
+safetensors weights remain available. This stricter YONOD admission policy
+does not patch native Torch, audit every optional loader, or fix other native
+Torch/JIT advisories. It supplements, and does not replace, the four backports.
+Replacing weights_only with unrestricted loading is not a compatibility
+workaround. The kernels-community allowlist is
 the upstream trust boundary; it is not a sandbox or a guarantee about every
 kernel published by that organization. Source-built accessory conversion
 scripts remain outside the supported YONOD workflow; no claim is made that all

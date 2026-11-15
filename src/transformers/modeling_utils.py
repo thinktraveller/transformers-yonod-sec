@@ -503,9 +503,9 @@ def load_state_dict(
                     state_dict[k] = f.get_tensor(k)
             return state_dict
 
-    # Fallback to torch.load (if weights_only was explicitly False, do not check safety as this is known to be unsafe)
-    if weights_only:
-        check_torch_load_is_safe()
+    # YONOD sec2: explicit weights_only=False must not bypass the <2.10
+    # pickle admission guard. The safetensors path returns above.
+    check_torch_load_is_safe()
     try:
         if map_location is None:
             if (
