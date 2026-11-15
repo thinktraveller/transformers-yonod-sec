@@ -415,7 +415,9 @@ class GenerationMixin(ContinuousMixin):
         """
         # YONOD sec3 backport: resolve consent before any remote module fetch
         # or cache write. A warning alone is not authorization.
-        is_local_code = os.path.exists(pretrained_model_name_or_path)
+        # Match get_cached_module_file: a same-named regular file is not a
+        # local model directory and must not bypass remote consent.
+        is_local_code = os.path.isdir(pretrained_model_name_or_path)
         error_message = (
             f"The repository `{pretrained_model_name_or_path}` contains custom generation code that will override "
             "the default `generate` method."

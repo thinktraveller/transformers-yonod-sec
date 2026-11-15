@@ -65,5 +65,7 @@ is needed for this 4.x adaptation. Declining consent, an unresolved None, or a
 warning without true resolved consent cannot download/cache remote code.
 Explicit True and an affirmative result from the existing consent resolver
 retain the authorized API; the existing local-code interface is preserved.
+Only an actual local directory selects that interface, matching the module
+fetcher's isdir predicate; a same-named regular file cannot bypass consent.
 Missing remote files are reported only after authorization. The advisory
 still lists no first patched upstream release; this fork does not invent one.

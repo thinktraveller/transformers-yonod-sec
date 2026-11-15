@@ -64,7 +64,7 @@
       "production_files": [
         "src/transformers/generation/utils.py"
       ],
-      "adaptation": "Resolve consent before the existing get_cached_module_file call, without adding an existence-probe network request. Require a true resolved consent value for remote code. Keep the existing local-code interface and authorized missing-file error. Official advisory first_patched_version is null; do not invent an upstream fixed release."
+      "adaptation": "Resolve consent before the existing get_cached_module_file call, without adding an existence-probe network request. Require a true resolved consent value for remote code. Keep the existing local-code interface and authorized missing-file error. Official advisory first_patched_version is null; do not invent an upstream fixed release. Classify local code with isdir to match the module fetcher; a same-named regular file must not bypass consent."
     }
   ],
   "modified_production_files": [
